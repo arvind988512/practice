@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>to-Do list</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="todo-app">
-        <h2>To-Do List <img src="images/icon.png" alt="icon" /></h2>
-        <div class="row">
-          <input type="text" id="input-box" placeholder="Add your text" />
-          <select id="list-container-prio" name="dropdown" class="prio-list">
-            <option value="option1">&#x26A0;</option>
-            <option value="option2">&#x1F534;</option>
-            <option value="option3">&#x1F7E2;</option>
-            <!-- Add more options as needed -->
-          </select>
-          <button onclick="addTask()">Add</button>
-        </div>
-
-        <ul id="list-container">
-          <!-- <li class="checked">task1</li>
-          <li>task2</li>
-          <li>task3</li> -->
-        </ul>
-        <button class="clr-btn" onclick="refreshEverything()">clear</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grocery List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="todo-app">
+      <h2>Grocery List <img src="images/icon.png" alt="icon" /></h2>
+      <div class="row">
+        <input type="text" id="input-box" placeholder="Add your text" />
+        <button onclick="addTask()" id="myButton">Add</button>
       </div>
+
+      <label for="grams">Select Qty in Grams:</label>
+      <input type="range" id="grams" name="grams" min="0" max="975" value="25" step="25" oninput="updateQuantity()" />
+      <span id="grams-count">25 grams</span>
+      <br />
+
+      <label for="kilograms">Select Qty in Kgs:</label>
+      <input type="range" id="kilograms" name="kilograms" min="0" max="10" value="1" step="0.1" oninput="updateQuantity()" />
+      <span id="kilograms-count">1 kg</span>
+      <br />
+
+      <p id="total-display">Total Qty: 25 grams</p>
+
+      <ul id="list-container"></ul>
+      <!-- Change the onclick function to clearTasks -->
+      <button class="clr-btn" onclick="clearTasks()">Clear</button>
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>
