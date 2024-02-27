@@ -39,18 +39,30 @@ input {
   flex: 1;
   border: none;
   outline: none;
-  background: transparent;
+  background-color: transparent;
   padding: 10px;
   font-weight: 14px;
+  border-radius: 45px;
 }
 button {
   border: none;
   outline: none;
   padding: 16px 50px;
-  background: #ffe345;
+  background: #ea3d12;
   font-size: 16px;
-  color: #ef2994;
+  color: #ffee8b;
   border-radius: 40px;
+  cursor: pointer;
+}
+.clr-btn {
+  border:1px solid white;
+  outline: none;
+  margin-top: 30px ;
+  padding: 8px 30px;
+  background: black;
+  font-size: 16px;
+  color: white;
+  border-radius: 10px;
   cursor: pointer;
 }
 ul li {
@@ -76,6 +88,34 @@ ul li.checked {
   color: #555;
   text-decoration: line-through;
 }
-ul li.checked::before{
-    background-image: url(images/checked.png);
+ul li.checked::before {
+  background-image: url(images/checked.png);
+}
+
+ul li span {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  height: 40px;
+  width: 40px;
+  font-size: 22px;
+  line-height: 40px;
+  text-align: center;
+  color: #555;
+  border-radius: 50%;
+}
+ul li span:hover {
+  background: #edeef0;
+}
+.prio-list{
+  background: transparent;
+  border: none;
+  padding-block-start: 10px 8px;
+  margin:0 20px;
+  font-size: 18px;
+  
+  line-height: 25px;
+  width: 60px;
+  height: 35px;
+  border-radius: 40px;
 }
