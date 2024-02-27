@@ -4,18 +4,12 @@ const gramsRange = document.getElementById("grams");
 const kilogramsRange = document.getElementById("kilograms");
 
 function addTask() {
-  if (inputBox.value === "") {
-    alert("Please enter something");
-  } else {
-    const li = document.createElement("li");
-    const span = document.createElement("span");
+  if (!inputBox.value) return alert("Please enter something");
 
-    li.textContent = `${inputBox.value} - ${getTotalQuantity()}`;
-    span.innerHTML = "\u00d7";
-
-    li.appendChild(span);
-    listContainer.appendChild(li);
-  }
+  const li = document.createElement("li");
+  li.textContent = `${inputBox.value} - ${getTotalQuantity()}`;
+  li.innerHTML += "<span>\u00d7</span>";
+  listContainer.appendChild(li);
 
   inputBox.value = "";
   saveData();
@@ -23,37 +17,32 @@ function addTask() {
 
 function handleTaskClick(event) {
   const clickedElement = event.target;
+  const parentLi = clickedElement.closest("li");
 
-  if (clickedElement.tagName === "LI") {
-    clickedElement.classList.toggle("checked");
-  } else if (clickedElement.tagName === "SPAN") {
-    const parentLi = clickedElement.closest("li");
-    if (parentLi) {
-      parentLi.remove();
-    }
+  if (parentLi) {
+    if (clickedElement.tagName === "LI") parentLi.classList.toggle("checked");
+    else if (clickedElement.tagName === "SPAN") parentLi.remove();
+
+    saveData();
   }
-
-  saveData();
 }
 
 function updateQuantity() {
   const gramsValue = parseInt(gramsRange.value);
   const kilogramsValue = parseFloat(kilogramsRange.value);
 
-  document.getElementById("grams-count").textContent = `${gramsValue} grams`;
-  document.getElementById("kilograms-count").textContent = `${kilogramsValue.toFixed(1)} kg`;
+  document.getElementById("grams-count").textContent = `${gramsValue.toFixed(
+    1
+  )} grams`;
+  document.getElementById(
+    "kilograms-count"
+  ).textContent = `${kilogramsValue.toFixed(1)} kg`;
 
   const totalGrams = gramsValue + kilogramsValue * 1000;
-
-  let displayText;
-
-  if (totalGrams >= 1000) {
-    const totalKilograms = totalGrams / 1000;
-    displayText = `Total Qty: ${totalKilograms.toFixed(1)} kg`;
-  } else {
-    displayText = `Total Qty: ${totalGrams} grams`;
-  }
-
+  const displayText =
+    totalGrams >= 1000
+      ? `Total Qty: ${(totalGrams / 1000).toFixed(1)} kg`
+      : `Total Qty: ${totalGrams} grams`;
   document.getElementById("total-display").textContent = displayText;
 }
 
@@ -62,13 +51,9 @@ function getTotalQuantity() {
   const kilogramsValue = parseFloat(kilogramsRange.value);
 
   const totalGrams = gramsValue + kilogramsValue * 1000;
-
-  if (totalGrams >= 1000) {
-    const totalKilograms = totalGrams / 1000;
-    return `${totalKilograms.toFixed(1)} kg`;
-  } else {
-    return `${totalGrams} grams`;
-  }
+  return totalGrams >= 1000
+    ? `${(totalGrams / 1000).toFixed(1)} kg`
+    : `${totalGrams} grams`;
 }
 
 function saveData() {
@@ -88,18 +73,15 @@ function refreshEverything() {
   showTask();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  var myButton = document.getElementById("myButton");
-  function handleKeyDown(event) {
-    if (event.key === "Enter" || event.keyCode === 13) {
-      myButton.click();
-    }
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const myButton = document.getElementById("myButton");
+  const handleKeyDown = (event) =>
+    (event.key === "Enter" || event.keyCode === 13) && myButton.click();
   document.addEventListener("keydown", handleKeyDown);
 
-  document.getElementById("list-container").addEventListener("click", function(event) {
-    handleTaskClick(event);
-  });
+  document
+    .getElementById("list-container")
+    .addEventListener("click", handleTaskClick);
 });
 
 showTask();
