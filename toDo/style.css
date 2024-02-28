@@ -4,6 +4,12 @@
   font-family: "poppins", sans-serif;
   box-sizing: border-box;
 }
+
+html {
+  scroll-behavior: smooth;
+
+}
+
 .container {
   width: 100%;
   min-height: 100vh;
@@ -36,7 +42,7 @@
   background: #edeef0;
 }
 input {
-  flex: 1;
+  flex: 0;
   border: none;
   outline: none;
   background-color: transparent;
@@ -129,6 +135,40 @@ ul li span:hover {
 .mb-20 {
   margin-bottom: 20px;
 }
-.capitailse{
-text-transform: capitalize;
+.capitailse {
+  text-transform: capitalize;
+}
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-left {
+  justify-content: left;
+}
+.gap15 {
+  gap: 15px;
+}
+.underline {
+  text-decoration: underline;
+}
+.border-1 {
+  border: 1px solid black;
+  padding: 3px;
+}
+
+#grams {
+  background-color: #3498db; /* Change this color to your desired color */
+  height: 10px;
+  border-radius: 5px;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+#grams:hover {
+  background-color: #2980b9; /* Change this color for hover effect */
+}
+.min-w60{
+  min-width: 60%;
 }

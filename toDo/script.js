@@ -2,9 +2,14 @@ const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 const gramsRange = document.getElementById("grams");
 const kilogramsRange = document.getElementById("kilograms");
+const myButton = document.getElementById("myButton");
 
 function addTask() {
-  if (!inputBox.value) return alert("Please enter something");
+  console.log("addTask");
+  if (!inputBox.value.trim()) {
+    alert("Please enter something");
+    return;
+  }
 
   const li = document.createElement("li");
   li.textContent = `${inputBox.value} - ${getTotalQuantity()}`;
@@ -31,9 +36,7 @@ function updateQuantity() {
   const gramsValue = parseInt(gramsRange.value);
   const kilogramsValue = parseFloat(kilogramsRange.value);
 
-  document.getElementById("grams-count").textContent = `${gramsValue.toFixed(
-    1
-  )} grams`;
+  document.getElementById("grams-count").textContent = `${gramsValue} gms`;
   document.getElementById(
     "kilograms-count"
   ).textContent = `${kilogramsValue.toFixed(1)} kg`;
@@ -41,8 +44,8 @@ function updateQuantity() {
   const totalGrams = gramsValue + kilogramsValue * 1000;
   const displayText =
     totalGrams >= 1000
-      ? `Total Qty: ${(totalGrams / 1000).toFixed(1)} kg`
-      : `Total Qty: ${totalGrams} grams`;
+      ? `Total Qty: ${(totalGrams / 1000).toFixed(2)} kg`
+      : `Total Qty: ${totalGrams} gms`;
   document.getElementById("total-display").textContent = displayText;
 }
 
@@ -53,7 +56,7 @@ function getTotalQuantity() {
   const totalGrams = gramsValue + kilogramsValue * 1000;
   return totalGrams >= 1000
     ? `${(totalGrams / 1000).toFixed(1)} kg`
-    : `${totalGrams} grams`;
+    : `${totalGrams} gms`;
 }
 
 function saveData() {
@@ -66,23 +69,26 @@ function showTask() {
 
 function clearTasks() {
   listContainer.innerHTML = "";
+  saveData();
 }
 
-function refreshEverything() {
-  clearTasks();
-  showTask();
+function handleKeyDown(event) {
+  if (event.key === "Enter" || event.keyCode === 13) {
+    event.preventDefault();
+    myButton.click();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const myButton = document.getElementById("myButton");
-  const handleKeyDown = (event) =>
-    (event.key === "Enter" || event.keyCode === 13) && myButton.click();
   document.addEventListener("keydown", handleKeyDown);
-
-  document
-    .getElementById("list-container")
-    .addEventListener("click", handleTaskClick);
+  listContainer.addEventListener("click", handleTaskClick);
 });
 
+function handleKeyDown(event) {
+  if (event.key === "Enter" || event.keyCode === 13) {
+    event.preventDefault();
+    addTask();
+  }
+}
+
 showTask();
-refreshEverything();
